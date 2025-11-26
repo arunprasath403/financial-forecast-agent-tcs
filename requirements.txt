@@ -4,7 +4,7 @@ uvicorn==0.29.0
 
 # LangChain ecosystem
 langchain==0.1.13
-langchain-core==0.1.32
+langchain-core==0.1.33
 langchain-community==0.0.28
 langchain-openai==0.1.2
 
