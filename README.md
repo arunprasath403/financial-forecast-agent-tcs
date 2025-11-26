@@ -126,7 +126,7 @@ Handles:
 ## Step 1 — Clone (Use PowerShell)
 ```bash
 git clone https://github.com/arunprasath403/financial-forecast-agent-tcs.git
-cd financial-forecast_agent_tcs
+cd financial-forecast-agent-tcs
 ```
 
 ## Step 2 — Venv
