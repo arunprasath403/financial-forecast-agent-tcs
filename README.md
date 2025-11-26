@@ -178,7 +178,7 @@ $env:FORECAST_DB_URL="mysql+pymysql://forecast:your_password@127.0.0.1:3306/fore
 ```bash
 python -c "from app.db.database import init_db; init_db(); print('DB initialized')"
 ```
-## Step 5 — Env Variables
+## Step 9 — Env Variables
 ```bash
 FORECAST_DB_URL=mysql+pymysql://forecast:your_password@127.0.0.1:3306/forecast_agent
 OPENROUTER_API_KEY=sk-your-key
