@@ -133,7 +133,7 @@ cd financial-forecast-agent-tcs
 Windows:
 ```bash
 python -m venv venv
-.env\Scriptsctivate
+.venv\Scripts\activate
 ```
 
 Linux/macOS:
