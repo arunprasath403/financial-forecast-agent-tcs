@@ -29,8 +29,14 @@ def estimate_tokens(s: str) -> int:
     return max(1, int(len(s) / 4))
 
 
-# Developer requested the local file path be passed in payload (we include it)
-TOOL_SOURCE_FILE = r"D:\Forecast_agent_TCS\app\tools\financial_extractor.py"
+from pathlib import Path
+
+# Resolve project root based on this file location
+PROJECT_ROOT = Path(__file__).resolve().parents[2]   # adjust if needed
+
+# Build absolute path to the tool file
+TOOL_SOURCE_FILE = str(PROJECT_ROOT / "app" / "tools" / "financial_extractor.py")
+
 
 # ---------------------------
 # Helpers: OpenRouter calls
