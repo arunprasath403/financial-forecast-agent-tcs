@@ -139,7 +139,7 @@ python -m venv venv
 Linux/macOS:
 ```bash
 python3 -m venv venv
-source venv/bin/activate
+venv\Scripts\Activate
 ```
 
 ## Step 3 — Install
