@@ -9,20 +9,36 @@ load_dotenv()
 from pathlib import Path
 
 # Get project root (adjust parents[] depending where this file is)
+_log = logging.getLogger("tcs_agent.financial_extractor")
+if not _log.handlers:
+    handler = logging.StreamHandler()
+    handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(name)s: %(message)s"))
+    _log.addHandler(handler)
+    _log.setLevel(logging.INFO)
+
+# ------------------------------------------------------------------
+# Project-root-based paths (portable, not hardcoded)
+# ------------------------------------------------------------------
+# If this file lives in app/tools/..., parents[2] points to the repo root.
+# If this file is somewhere else, parents index may need adjustment.
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
-# PDF directory path
+# Data locations (built from project root, not relative cwd)
 PDF_DIR = PROJECT_ROOT / "data" / "docs" / "screener_pdfs"
-PAGES_TO_READ = 3
-OUT_JSON = Path("data/selected_pdfs.json")
+OUT_JSON = PROJECT_ROOT / "data" / "selected_pdfs.json"
+
+# Ensure parent exists for OUT_JSON
 OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
 
+# Other constants
+PAGES_TO_READ = 3
 
 # --- REGEX ---
 TRANSCRIPT_PAT = re.compile(
     r"(transcript|investor call|earnings call|conference call|q&a|q & a|operator:|participants|scrip code|symbol\s*-\s*tcs)",
     re.I
 )
+
 
 FACTSHEET_PAT = re.compile(r"(fact\s*sheet|financial results|quarterly results|consolidated results)", re.I)
 
