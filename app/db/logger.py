@@ -28,11 +28,10 @@ def get_db_session():
     finally:
         session.close()
 
-
 def log_request_and_response(
     request_payload: Optional[dict],
     response_payload: Optional[dict],
-    source_file_path: Optional[str] = "/mnt/data/Task_ Financial Forecasting Agent for TCS.pdf",
+    source_file_path: Optional[str] = "/data/Task_ Financial Forecasting Agent for TCS.pdf",
     status: str = "success",
     error_text: Optional[str] = None,
 ) -> int:
