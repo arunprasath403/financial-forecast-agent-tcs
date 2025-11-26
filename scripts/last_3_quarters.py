@@ -19,26 +19,16 @@ if not _log.handlers:
 # project root (adjust parents if file location differs)
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
-# default (project-relative)
-default_out = PROJECT_ROOT / "data" / "selected_pdfs.json"
+# GitHub-safe paths — work for all users
+PDF_DIR = PROJECT_ROOT / "data" / "docs" / "screener_pdfs"
+OUT_JSON = PROJECT_ROOT / "data" / "selected_pdfs.json"
 
-# absolute path you provided (Windows)
-provided_abs = Path(r"C:\Users\arun.prasathr\financial-forecast-agent-tcs\data\selected_pdfs.json")
-
-# allow override via env var SELECTED_PDFS
-env_path = os.environ.get("SELECTED_PDFS")
-
-if env_path:
-    OUT_JSON = Path(env_path).resolve()
-elif provided_abs.exists():
-    OUT_JSON = provided_abs.resolve()
-else:
-    OUT_JSON = default_out.resolve()
-
-# ensure parent folder exists
+# Create folder if missing
 OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
 
-print("Using OUT_JSON =", OUT_JSON)
+log.info(f"PROJECT_ROOT = {PROJECT_ROOT}")
+log.info(f"PDF_DIR = {PDF_DIR}")
+log.info(f"OUT_JSON = {OUT_JSON}")
 
 # Other constants
 PAGES_TO_READ = 3
