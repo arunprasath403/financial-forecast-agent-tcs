@@ -149,13 +149,35 @@ pip install langchain==0.1.13 langchain-openai==0.1.2 openai==1.14.2
 pip install -r requirements.txt
 ```
 
-## Step 4 — MySQL
-```sql
-CREATE DATABASE forecast_agent;
+## Step 4 — Open MySQL Console from PowerShell
+```bash
+& "C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe" -u root -p
+```
+## Step 5 - Create Database, User, and Grant Permissions
+```SQL
+CREATE DATABASE forecast_agent
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+
 CREATE USER 'forecast'@'localhost' IDENTIFIED BY 'your_password';
+
 GRANT ALL ON forecast_agent.* TO 'forecast'@'localhost';
+
+FLUSH PRIVILEGES;
 ```
 
+## Step 6 - Verify Database Creation
+```SQL
+SHOW DATABASES;
+```
+## Step 7 - Set the Database Connection URL (PowerShell)
+```SQL
+$env:FORECAST_DB_URL="mysql+pymysql://forecast:your_password@127.0.0.1:3306/forecast_agent"
+```
+## Step 8 - Initialize Database Tables (PowerShell)
+```bash
+python -c "from app.db.database import init_db; init_db(); print('DB initialized')"
+```
 ## Step 5 — Env Variables
 ```bash
 FORECAST_DB_URL=mysql+pymysql://forecast:your_password@127.0.0.1:3306/forecast_agent
