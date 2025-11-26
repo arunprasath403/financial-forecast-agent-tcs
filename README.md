@@ -123,7 +123,7 @@ Handles:
 
 # ⚙️ 3. Setup Instructions
 
-## Step 1 — Clone
+## Step 1 — Clone (Use PowerShell)
 ```bash
 git clone https://github.com/arunprasath403/financial-forecast-agent-tcs.git
 cd Forecast_agent_TCS
