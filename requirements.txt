@@ -1,70 +1,51 @@
-# ------------------
-# Core web + runtime
-# ------------------
+# core web
 fastapi==0.110.1
-uvicorn==0.29.0
+uvicorn[standard]==0.19.0
+
+# http / env
 requests==2.31.0
 python-dotenv==1.0.1
-pydantic==1.10.14
+
+# pydantic (use v2 line with pydantic-core pair)
+pydantic==2.12.4
 pydantic-core==2.16.3
 
-# ------------------
-# LangChain ecosystem (compatible set)
-# ------------------
+# langchain / community
 langchain==0.0.320
 langchain-core==0.1.31
+langchain-community==0.2.10
+langchain-text-splitters==1.0.0
 langchain-openai==0.0.7
 openai==0.27.8
 
-# Community connectors used by scripts (PDF loaders, FAISS, HF embeddings)
-langchain-community==0.2.10
-langchain-text-splitters==1.0.0
+# embeddings / HF
+sentence-transformers==2.6.0
+transformers==4.57.3
+huggingface-hub==0.36.0
+tokenizers==0.22.1
 
+# torch for sentence-transformers (CPU)
+torch==2.1.2
+# faiss CPU (might be prebuilt binary for windows)
+faiss-cpu==1.13.0
 
-# ------------------
-# Hugging Face / Embeddings
-# ------------------
-sentence-transformers==2.2.2
-huggingface-hub==0.25.2
-transformers==4.36.0
-tokenizers>=0.13.3,<0.15
-
-# ------------------
-# Vector DB / FAISS
-# ------------------
-faiss-cpu==1.7.4
-
-# ------------------
-# PDF parsing / extraction
-# ------------------
+# pdf / parsing / crypto
+pypdf==6.4.0
 pdfplumber==0.10.3
-PyPDF2==3.0.1
-pdfminer.six==20221105
+cryptography>=3.4
 
-# ------------------
-# HTML parsing / scraping
-# ------------------
+# html / scraping / parsing
 beautifulsoup4==4.12.2
 lxml==4.9.3
 
-# ------------------
-# Data + NLP utils
-# ------------------
-numpy==1.26.4
-pandas==2.1.4
-scikit-learn==1.4.1
-nltk==3.8.1
+# data + utils
+numpy==2.2.6
+pandas==2.2.1
+scikit-learn==1.6.3
+nltk==3.9.1
 tqdm==4.66.2
 
-# ------------------
-# Misc / stability
-# ------------------
+# misc
 tenacity==8.2.3
 mysql-connector-python==8.2.0
 aiofiles==23.2.1
-
-# ------------------
-# Optional (recommended for long-term upgrade paths)
-# ------------------
-langchain-huggingface==0.0.8   # optional: newer HF embedding helper (if you migrate)
-sentence-transformers[torch]==2.2.2   # if you will use GPU / torch-backed ST
