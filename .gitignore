@@ -1,0 +1,60 @@
+# -------------------------
+# Python
+# -------------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+*.pickle
+*.log
+
+# -------------------------
+# Virtual Environment
+# -------------------------
+venv/
+ENV/
+env/
+
+# -------------------------
+# FAISS & Embeddings
+# -------------------------
+faiss_index
+*.npy
+*.npz
+*.pt
+*.bin
+
+# -------------------------
+# Screener PDFs & Raw Data
+# (Optional: Keep or remove depending on submission requirements)
+# -------------------------
+data/docs/screener_pdfs/
+data/selected_pdfs.json
+data/last_3_quarter_links.txt
+
+# -------------------------
+# Cache / Temp files
+# -------------------------
+.tmp/
+temp/
+temp_files/
+cache/
+*.tmp
+
+# -------------------------
+# OS / Editor junk
+# -------------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# -------------------------
+# Uvicorn / FastAPI logs
+# -------------------------
+*.db-journal
+*.sqlite
+*.sqlite3
+uvicorn.log
