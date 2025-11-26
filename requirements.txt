@@ -1,51 +1,50 @@
 # core web
-fastapi==0.110.1
-uvicorn[standard]==0.19.0
+fastapi
+uvicorn[standard]
 
 # http / env
-requests==2.31.0
-python-dotenv==1.0.1
+requests
+python-dotenv
 
-# pydantic (use v2 line with pydantic-core pair)
-pydantic==2.12.4
-pydantic-core==2.16.3
+# pydantic
+pydantic
+pydantic-core
 
 # langchain / community
-langchain==0.0.320
-langchain-core==0.1.31
-langchain-community==0.2.10
-langchain-text-splitters==1.0.0
-langchain-openai==0.0.7
-openai==0.27.8
+langchain
+langchain-core
+langchain-community
+langchain-text-splitters
+langchain-openai
+openai
 
 # embeddings / HF
-sentence-transformers==2.6.0
-transformers==4.57.3
-huggingface-hub==0.36.0
-tokenizers==0.22.1
+sentence-transformers
+transformers
+huggingface-hub
+tokenizers
 
 # torch for sentence-transformers (CPU)
-torch==2.1.2
-# faiss CPU (might be prebuilt binary for windows)
-faiss-cpu==1.13.0
+torch
+faiss-cpu
 
 # pdf / parsing / crypto
-pypdf==6.4.0
-pdfplumber==0.10.3
-cryptography>=3.4
+pypdf
+pdfplumber
+cryptography
 
 # html / scraping / parsing
-beautifulsoup4==4.12.2
-lxml==4.9.3
+beautifulsoup4
+lxml
 
 # data + utils
-numpy==2.2.6
-pandas==2.2.1
-scikit-learn==1.6.3
-nltk==3.9.1
-tqdm==4.66.2
+numpy
+pandas
+scikit-learn
+nltk
+tqdm
 
 # misc
-tenacity==8.2.3
-mysql-connector-python==8.2.0
-aiofiles==23.2.1
+tenacity
+mysql-connector-python
+aiofiles
