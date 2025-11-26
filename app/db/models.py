@@ -17,7 +17,7 @@ class ForecastLog(Base):
     # final response JSON (string)
     response_payload = Column(LONGTEXT, nullable=True)
 
-    # optional source file path (e.g., /mnt/data/Task_ Financial Forecasting Agent for TCS.pdf)
+    # optional source file path (e.g.,/data/Task_ Financial Forecasting Agent for TCS.pdf)
     source_file_path = Column(String(1024), nullable=True, index=True)
 
     # small status string e.g. "success" or "error"
