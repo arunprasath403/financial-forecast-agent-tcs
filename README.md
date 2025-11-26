@@ -145,7 +145,6 @@ venv\Scripts\Activate
 ## Step 3 — Install
 ```bash
 python -m pip install --upgrade pip setuptools wheel
-pip install langchain==0.1.13 langchain-openai==0.1.2 openai==1.14.2
 pip install -r requirements.txt
 ```
 
