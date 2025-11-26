@@ -125,7 +125,7 @@ Handles:
 
 ## Step 1 — Clone
 ```bash
-git clone <your-github-url>
+git clone (https://github.com/arunprasath403/financial-forecast-agent-tcs.git)
 cd Forecast_agent_TCS
 ```
 
