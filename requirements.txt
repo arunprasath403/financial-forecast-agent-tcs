@@ -1,37 +1,58 @@
-# FastAPI + server
+# -------------------------------------
+# FastAPI + Server
+# -------------------------------------
 fastapi==0.110.0
 uvicorn==0.29.0
 
-# LangChain (pin main package only; allow it to pull compatible internals)
+# -------------------------------------
+# LangChain Core + Community
+# -------------------------------------
 langchain==0.1.13
 langchain-openai==0.1.2
+langchain-community==0.0.31     # Provides langchain_community.*
 
-# LLM client (OpenRouter / OpenAI compatible)
-openai==1.14.2
-
-# NLP + RAG stack
+# -------------------------------------
+# HuggingFace / Embeddings Stack
+# -------------------------------------
 sentence-transformers==2.2.2
 transformers==4.38.2
+huggingface-hub==0.13.4         # CRITICAL pin to fix cached_download error
 torch==2.1.2
 
-# FAISS - CPU
+# -------------------------------------
+# FAISS (Vector Store)
+# -------------------------------------
 faiss-cpu==1.7.4
 
-# PDF processing
+# -------------------------------------
+# PDF Processing
+# -------------------------------------
+pypdf==4.1.0
 pdfplumber==0.11.0
 pdfminer-six==20231228
 
-# Web scraping
+# -------------------------------------
+# Web Scraping
+# -------------------------------------
 beautifulsoup4==4.12.3
 requests==2.31.0
 
-# Database
+# -------------------------------------
+# Database / ORM
+# -------------------------------------
 pymysql==1.1.0
 SQLAlchemy==2.0.29
 
-# Utilities
+# -------------------------------------
+# Utilities / Data / Regex
+# -------------------------------------
 python-dotenv==1.0.1
 tqdm==4.66.2
 numpy==1.26.4
 pandas==2.2.1
 regex==2023.12.25
+
+# -------------------------------------
+# LLM (OpenRouter / OpenAI client)
+# -------------------------------------
+openai==1.14.2
