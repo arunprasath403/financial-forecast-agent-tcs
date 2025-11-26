@@ -185,19 +185,19 @@ OPENROUTER_API_KEY=sk-your-key
 OPENROUTER_BASE=https://openrouter.ai/api/v1
 ```
 
-## Step 6 — Init DB
+## Step 10 — Init DB
 ```bash
 python -c "from app.db.database import init_db; init_db()"
 ```
 
-## Step 7 — Run Server
+## Step 11 — Run Server(Wait for 1 - 2 mins)
 ```bash
 uvicorn app.api_fastapi:app --reload --port 8000
 ```
 
 ---
 
-# 🧪 4. Run the Agent
+# 🧪 Step 12. Run the Agent
 
 ```bash
 curl http://localhost:8000/forecast
@@ -205,7 +205,7 @@ curl http://localhost:8000/forecast
 
 ---
 
-# 📂 5. Repo Structure
+# 📂Repo Structure
 
 ```
 app/
