@@ -6,7 +6,13 @@ from urllib.parse import unquote
 from pdfminer.high_level import extract_text
 from dotenv import load_dotenv
 load_dotenv()
-PDF_DIR = Path(r"D:\Forecast_agent_TCS\data\docs\screener_pdfs")
+from pathlib import Path
+
+# Get project root (adjust parents[] depending where this file is)
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+# PDF directory path
+PDF_DIR = PROJECT_ROOT / "data" / "docs" / "screener_pdfs"
 PAGES_TO_READ = 3
 OUT_JSON = Path("data/selected_pdfs.json")
 OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
