@@ -31,6 +31,7 @@ faiss-cpu
 # pdf / parsing / crypto
 pypdf
 pdfplumber
+
 cryptography
 
 # html / scraping / parsing
@@ -43,6 +44,7 @@ pandas
 scikit-learn
 nltk
 tqdm
+pymysql
 
 # misc
 tenacity
