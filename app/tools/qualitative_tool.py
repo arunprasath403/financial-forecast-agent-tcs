@@ -45,7 +45,13 @@ except:
 # -------------------------------------------------------------------
 # PATH to selected_pdfs.json (YOUR FILE)
 # -------------------------------------------------------------------
-SELECTED_PDFS = Path(r"D:\Forecast_agent_TCS\data\selected_pdfs.json")
+from pathlib import Path
+
+# Get project root → 2 levels above this file (adjust if needed)
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
+# Path to /data/selected_pdfs.json
+SELECTED_PDFS = PROJECT_ROOT / "data" / "selected_pdfs.json"
 
 
 # -------------------- LOAD TRANSCRIPT LIST -------------------------
