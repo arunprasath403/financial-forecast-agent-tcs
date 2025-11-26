@@ -18,7 +18,8 @@ openai==0.27.8
 
 # Community connectors used by scripts (PDF loaders, FAISS, HF embeddings)
 langchain-community==0.2.10
-pip install langchain-text-splitters==0.3.11
+langchain-text-splitters==1.0.0
+
 
 # ------------------
 # Hugging Face / Embeddings
