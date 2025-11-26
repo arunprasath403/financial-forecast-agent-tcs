@@ -1,58 +1,69 @@
-# -------------------------------------
-# FastAPI + Server
-# -------------------------------------
-fastapi==0.110.0
+# ------------------
+# Core web + runtime
+# ------------------
+fastapi==0.110.1
 uvicorn==0.29.0
+requests==2.31.0
+python-dotenv==1.0.1
+pydantic==1.10.14
+pydantic-core==2.16.3
 
-# -------------------------------------
-# LangChain Core + Community
-# -------------------------------------
-langchain==0.1.13
-langchain-openai==0.1.2
-langchain-community==0.0.31     # Provides langchain_community.*
+# ------------------
+# LangChain ecosystem (compatible set)
+# ------------------
+langchain==0.0.320
+langchain-core==0.1.31
+langchain-openai==0.0.7
+openai==0.27.8
 
-# -------------------------------------
-# HuggingFace / Embeddings Stack
-# -------------------------------------
+# Community connectors used by scripts (PDF loaders, FAISS, HF embeddings)
+langchain-community==0.2.10
+langchain-text-splitters==0.1.9
+
+# ------------------
+# Hugging Face / Embeddings
+# ------------------
 sentence-transformers==2.2.2
-transformers==4.38.2
-huggingface-hub==0.13.4         # CRITICAL pin to fix cached_download error
-torch==2.1.2
+huggingface-hub==0.13.4
+transformers==4.36.0
+tokenizers>=0.13.3,<0.15
 
-# -------------------------------------
-# FAISS (Vector Store)
-# -------------------------------------
+# ------------------
+# Vector DB / FAISS
+# ------------------
 faiss-cpu==1.7.4
 
-# -------------------------------------
-# PDF Processing
-# -------------------------------------
-pypdf==4.1.0
-pdfplumber==0.11.0
-pdfminer-six==20231228
+# ------------------
+# PDF parsing / extraction
+# ------------------
+pdfplumber==0.10.3
+PyPDF2==3.0.1
+pdfminer.six==20221105
 
-# -------------------------------------
-# Web Scraping
-# -------------------------------------
-beautifulsoup4==4.12.3
-requests==2.31.0
+# ------------------
+# HTML parsing / scraping
+# ------------------
+beautifulsoup4==4.12.2
+lxml==4.9.3
 
-# -------------------------------------
-# Database / ORM
-# -------------------------------------
-pymysql==1.1.0
-SQLAlchemy==2.0.29
-
-# -------------------------------------
-# Utilities / Data / Regex
-# -------------------------------------
-python-dotenv==1.0.1
-tqdm==4.66.2
+# ------------------
+# Data + NLP utils
+# ------------------
 numpy==1.26.4
-pandas==2.2.1
-regex==2023.12.25
+pandas==2.1.4
+scikit-learn==1.4.1
+nltk==3.8.1
+tqdm==4.66.2
 
-# -------------------------------------
-# LLM (OpenRouter / OpenAI client)
-# -------------------------------------
-openai==1.14.2
+# ------------------
+# Misc / stability
+# ------------------
+tenacity==8.2.3
+mysql-connector-python==8.2.0
+aiofiles==23.2.1
+
+# ------------------
+# Optional (recommended for long-term upgrade paths)
+# ------------------
+langchain-huggingface==0.0.8   # optional: newer HF embedding helper (if you migrate)
+sentence-transformers[torch]==2.2.2   # if you will use GPU / torch-backed ST
