@@ -1,15 +1,15 @@
-# server
+# FastAPI + server
 fastapi==0.110.0
 uvicorn==0.29.0
 
-# LangChain (pin only main package; let it pull compatible internals)
+# LangChain (pin main package only; allow it to pull compatible internals)
 langchain==0.1.13
 langchain-openai==0.1.2
 
 # LLM client (OpenRouter / OpenAI compatible)
 openai==1.14.2
 
-# NLP / RAG
+# NLP + RAG stack
 sentence-transformers==2.2.2
 transformers==4.38.2
 torch==2.1.2
@@ -17,17 +17,19 @@ torch==2.1.2
 # FAISS - CPU
 faiss-cpu==1.7.4
 
-# PDF and scraping
+# PDF processing
 pdfplumber==0.11.0
 pdfminer-six==20231228
+
+# Web scraping
 beautifulsoup4==4.12.3
 requests==2.31.0
 
-# DB
+# Database
 pymysql==1.1.0
 SQLAlchemy==2.0.29
 
-# Utils
+# Utilities
 python-dotenv==1.0.1
 tqdm==4.66.2
 numpy==1.26.4
