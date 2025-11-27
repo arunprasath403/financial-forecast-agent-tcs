@@ -202,7 +202,7 @@ uvicorn app.api_fastapi:app --reload --port 8000
 # 🧪 Step 12. Run the Agent
 
 ```bash
-curl http://localhost:8000/forecast
+curl.exe -v "http://127.0.0.1:8000/forecast?token=TESTTOKEN"
 ```
 
 ---
