@@ -188,7 +188,10 @@ OPENROUTER_BASE=https://openrouter.ai/api/v1
 ```bash
 python -c "from app.db.database import init_db; init_db()"
 ```
-
+## Step 11 - Verify (API Key)
+```bash
+curl.exe -v "https://openrouter.ai/api/v1/models" -H "Authorization: Bearer $env:OPENROUTER_API_KEY"
+```
 ## Step 11 — Run Server(Wait for 1 - 2 mins)
 ```bash
 uvicorn app.api_fastapi:app --reload --port 8000
