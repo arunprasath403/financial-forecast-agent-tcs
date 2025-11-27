@@ -192,14 +192,14 @@ python -c "from app.db.database import init_db; init_db()"
 ```bash
 curl.exe -v "https://openrouter.ai/api/v1/models" -H "Authorization: Bearer $env:OPENROUTER_API_KEY"
 ```
-## Step 11 — Run Server(Wait for 1 - 2 mins)
+## Step 12 — Run Server(Wait for 1 - 2 mins)
 ```bash
 uvicorn app.api_fastapi:app --reload --port 8000
 ```
 
 ---
 
-# 🧪 Step 12. Run the Agent
+# 🧪 Step 13. Run the Agent
 
 ```bash
 curl.exe -v "http://127.0.0.1:8000/forecast?token=TESTTOKEN"
