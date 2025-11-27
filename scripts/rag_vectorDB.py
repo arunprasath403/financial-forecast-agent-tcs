@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-scripts/rag_vectorDB.py  -- LangChain removed version
+scripts/rag_vectorDB.py  -- LangChain removed version (robust selected_pdfs.json loader)
 
-- Reads data/selected_pdfs.json
+- Reads data/selected_pdfs.json (searches multiple locations)
 - Extracts text per PDF page using pypdf
 - Heuristically detects transcript pages
 - Splits text into overlapping character chunks
@@ -20,7 +20,7 @@ import shutil
 from pathlib import Path
 from typing import List, Dict, Any, Optional
 
-# keep project root on path
+# keep project root on path (preserve current behaviour)
 sys.path.append(os.getcwd())
 
 # third-party imports
@@ -33,11 +33,10 @@ from sentence_transformers import SentenceTransformer
 from app.config import settings
 from app.logger import logger
 
-# paths
+# Paths for vector store (unchanged)
 VECTOR_ROOT = Path(settings.VECTOR_DIR)
 INDEX_DIR = VECTOR_ROOT / "faiss_index"
 TEMP_INDEX_DIR = VECTOR_ROOT / "faiss_index_tmp"
-SELECTED_JSON = Path("data/selected_pdfs.json")
 
 # transcript detection heuristics (same as before)
 TRANSCRIPT_MARKERS = [
@@ -63,23 +62,100 @@ def is_transcript_text(txt: str) -> bool:
     return False
 
 
-def load_selected_pdfs() -> List[Dict[str, Any]]:
-    if not SELECTED_JSON.exists():
-        logger.error("selected_pdfs.json NOT FOUND at %s", SELECTED_JSON)
-        return []
+def find_selected_json() -> Optional[Path]:
+    """
+    Robust locator for selected_pdfs.json.
+    Checks:
+      1. Env var SELECTED_JSON_PATH
+      2. <repo_root>/data/selected_pdfs.json
+      3. <repo_root>/app/data/selected_pdfs.json
+      4. cwd/data/selected_pdfs.json
+      5. cwd/app/data/selected_pdfs.json
+
+    Returns Path if found, else None.
+    """
+    # -----------------------------
+    # 1. ENVIRONMENT VARIABLE OVERRIDE
+    # -----------------------------
+    env_path = os.environ.get("SELECTED_JSON_PATH")
+    if env_path:
+        p = Path(env_path).expanduser().resolve()
+        if p.exists():
+            logger.info("Using selected_pdfs.json from SELECTED_JSON_PATH: %s", p)
+            return p
+        logger.warning("SELECTED_JSON_PATH is set but file does not exist: %s", p)
+
+    # -----------------------------
+    # 2. DETECT REPO ROOT SAFELY
+    # -----------------------------
     try:
-        data = json.loads(SELECTED_JSON.read_text(encoding="utf-8"))
-    except Exception as e:
-        logger.exception("Failed reading selected_pdfs.json: %s", e)
+        # scripts/rag_vectorDB.py → repo_root = parents[1]
+        repo_root = Path(__file__).resolve().parents[1]
+    except Exception:
+        repo_root = Path.cwd()
+
+    # -----------------------------
+    # 3. Build candidate list (unique + resolved)
+    # -----------------------------
+    raw_candidates = [
+        repo_root / "data" / "selected_pdfs.json",
+        repo_root / "app" / "data" / "selected_pdfs.json",
+        Path.cwd() / "data" / "selected_pdfs.json",
+        Path.cwd() / "app" / "data" / "selected_pdfs.json",
+    ]
+
+    # Normalize / resolve / deduplicate
+    candidates = []
+    seen = set()
+    for c in raw_candidates:
+        try:
+            r = c.resolve()
+        except Exception:
+            continue
+        if r not in seen:
+            seen.add(r)
+            candidates.append(r)
+
+    # -----------------------------
+    # 4. Try each candidate
+    # -----------------------------
+    for p in candidates:
+        if p.exists():
+            logger.info("Found selected_pdfs.json at: %s", p)
+            return p
+
+    # -----------------------------
+    # 5. Not found → log all paths
+    # -----------------------------
+    logger.error(
+        "selected_pdfs.json NOT FOUND.\nChecked paths:\n%s",
+        "\n".join(" - " + str(p) for p in candidates)
+    )
+    return None
+
+
+def load_selected_pdfs() -> List[Dict[str, Any]]:
+    sel_path = find_selected_json()
+    if not sel_path:
         return []
+
+    try:
+        data = json.loads(sel_path.read_text(encoding="utf-8"))
+    except Exception as e:
+        logger.exception("Failed reading selected_pdfs.json (%s): %s", sel_path, e)
+        return []
+
     pdfs = []
     for item in data:
         p = Path(item.get("path", ""))
+        # if path is relative, resolve relative to sel_path parent (likely repo_root/data)
+        if not p.is_absolute():
+            p = (sel_path.parent / p).resolve()
         if p.exists() and p.is_file():
             item["path"] = str(p.resolve())
             pdfs.append(item)
         else:
-            logger.warning("Missing PDF in selection list: %s", p)
+            logger.warning("Missing PDF in selection list (checked %s): %s", p, item.get("path", ""))
     logger.info("Loaded %d selected PDFs", len(pdfs))
     return pdfs
 
@@ -185,7 +261,7 @@ def main():
             # chunk page_text
             chunks = chunk_text(page_text, chunk_size=chunk_size, chunk_overlap=chunk_overlap)
             if not chunks:
-                # still add an empty chunk so indexes align? skip empty pages to save space
+                # skip empty pages to save space
                 continue
 
             for ch in chunks:
@@ -240,6 +316,23 @@ def main():
 
         logger.info("Saved FAISS index + texts.pkl + meta.pkl to %s", INDEX_DIR)
         print("DONE: FAISS index created at:", INDEX_DIR)
+
+        # -----------------------------
+        # Post-run: ensure selected_pdfs.json is available for downstream consumers
+        # -----------------------------
+        try:
+            src = Path("data") / "selected_pdfs.json"
+            dst = Path("app") / "data" / "selected_pdfs.json"
+            if src.exists():
+                dst.parent.mkdir(parents=True, exist_ok=True)
+                tmp = dst.with_suffix(".tmp")
+                shutil.copy2(src, tmp)
+                tmp.replace(dst)
+                logger.info("Synced selected_pdfs.json -> %s", dst)
+            else:
+                logger.warning("Post-sync skipped: source selected_pdfs.json missing at %s", src)
+        except Exception as e:
+            logger.warning("Failed to sync selected_pdfs.json to app/data/: %s", e)
 
     except Exception as e:
         logger.exception("Failed saving index files: %s", e)
